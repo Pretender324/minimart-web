@@ -4,6 +4,7 @@ import { CartListitem } from "../components/CartListItem";
 import { Layout } from "../components/Layout";
 import { clearCart, getCartItemCount } from "../lib/cart";
 import { CartItem } from "../lib/product";
+import styles from "./cart.module.css";
 
 const CartPage: FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>();
@@ -32,14 +33,18 @@ const CartPage: FC = () => {
   };
   return (
     <Layout cartItemCount={cartItemCount}>
-      {cartItems != null &&
-        cartItems.map((item) => (
-          <div key={item.product.id}>
-            <CartListitem cartItem={item}></CartListitem>
-          </div>
-        ))}
+      <ul className={styles.cartList}>
+        {cartItems != null &&
+          cartItems.map((item) => (
+            <li key={item.product.id}>
+              <CartListitem cartItem={item}></CartListitem>
+            </li>
+          ))}
+      </ul>
       <h2>合計金額: {totalPrice}円</h2>
-      <button onClick={handleSubmit}>注文する</button>
+      <button className={styles.orderBtn} onClick={handleSubmit}>
+        注文する
+      </button>
     </Layout>
   );
 };

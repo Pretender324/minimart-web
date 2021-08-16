@@ -1,0 +1,10 @@
+.addBtn {
+  text-align: center;
+  width: 60%;
+  height: 40px;
+  border-radius: 4px;
+  border-color: tomato;
+  box-shadow: none;
+  background-color: tomato;
+  color: white;
+}

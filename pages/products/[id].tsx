@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
 import { getCartItemCount } from "../../lib/cart";
 import { CartItem, getProduct, Product } from "../../lib/product";
+import styles from "./product.module.css";
 
 const ProductDetail: FC<{ inclimentCount: () => void }> = () => {
   const router = useRouter();
@@ -46,7 +47,9 @@ const ProductDetail: FC<{ inclimentCount: () => void }> = () => {
           <h1>{product.name}</h1>
           <p>{product.price}円</p>
           <p>{product.description}</p>
-          <button onClick={handleClick}>カートに追加する</button>
+          <button className={styles.addBtn} onClick={handleClick}>
+            カートに追加する
+          </button>
         </div>
       )}
     </Layout>

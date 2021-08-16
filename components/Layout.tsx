@@ -27,7 +27,7 @@ export const Layout: FC<Props> = ({ children, cartItemCount }) => {
           </Link>
         </div>
       </header>
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
     </div>
   );
 };
