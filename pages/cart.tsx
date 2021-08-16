@@ -1,11 +1,15 @@
+import { useRouter } from "next/dist/client/router";
 import { FC, useEffect, useState } from "react";
 import { CartListitem } from "../components/CartListItem";
 import { Layout } from "../components/Layout";
+import { clearCart, getCartItemCount } from "../lib/cart";
 import { CartItem } from "../lib/product";
 
 const CartPage: FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>();
+  const [cartItemCount, setCartItemCount] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -17,10 +21,17 @@ const CartPage: FC = () => {
         price += items.product.price * items.quantity;
       });
       setTotalPrice(price);
+      setCartItemCount(getCartItemCount());
     }
   }, []);
+
+  const handleSubmit = () => {
+    window.alert("注文しました");
+    router.push("/");
+    clearCart();
+  };
   return (
-    <Layout>
+    <Layout cartItemCount={cartItemCount}>
       {cartItems != null &&
         cartItems.map((item) => (
           <div key={item.product.id}>
@@ -28,7 +39,7 @@ const CartPage: FC = () => {
           </div>
         ))}
       <h2>合計金額: {totalPrice}円</h2>
-      <button>注文する</button>
+      <button onClick={handleSubmit}>注文する</button>
     </Layout>
   );
 };

@@ -1,18 +1,24 @@
 import { useRouter } from "next/dist/client/router";
 import { FC, useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
+import { getCartItemCount } from "../../lib/cart";
 import { CartItem, getProduct, Product } from "../../lib/product";
 
 const ProductDetail: FC<{ inclimentCount: () => void }> = () => {
   const router = useRouter();
   const [product, setProduct] = useState<Product>();
   const id = router.query.id?.toString();
+  const [cartItemCount, setCartItemCount] = useState<number>(0);
 
   useEffect(() => {
     if (id != null) {
       getProduct(id).then((product) => setProduct(product));
     }
   }, [id]);
+
+  useEffect(() => {
+    setCartItemCount(getCartItemCount());
+  }, []);
 
   const handleClick = () => {
     if (!product) return;
@@ -29,11 +35,11 @@ const ProductDetail: FC<{ inclimentCount: () => void }> = () => {
       cartItems.push(data);
     }
     localStorage.setItem("key", JSON.stringify(cartItems));
-    console.log(localStorage.getItem("key"));
+    setCartItemCount(cartItemCount + 1);
   };
 
   return (
-    <Layout>
+    <Layout cartItemCount={cartItemCount}>
       {product != null && (
         <div>
           <img src={product.imageUrl} alt={product.name} />

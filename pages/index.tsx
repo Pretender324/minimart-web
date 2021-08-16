@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.css";
 import { listProducts, Product } from "../lib/product";
 import { Layout } from "../components/Layout";
+import { getCartItemCount } from "../lib/cart";
 
 const TopPage: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -12,7 +13,7 @@ const TopPage: FC = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout cartItemCount={getCartItemCount()}>
       <ul className={styles.list}>
         {products.map((product) => (
           <li key={product.id} className={styles.listItem}>

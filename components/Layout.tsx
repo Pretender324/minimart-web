@@ -3,11 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "./Layout.module.css";
 
-type Props = {};
+type Props = {
+  cartItemCount: number;
+};
 
-export const Layout: FC<Props> = ({ children }) => {
-  const [count, setCount] = useState<number>();
-
+export const Layout: FC<Props> = ({ children, cartItemCount }) => {
   return (
     <div>
       <Head>
@@ -22,7 +22,7 @@ export const Layout: FC<Props> = ({ children }) => {
           <Link href="/cart">
             <a>
               <span>🛒</span>
-              <span className={styles.cartCount}>({count})</span>
+              <span className={styles.cartCount}>({cartItemCount})</span>
             </a>
           </Link>
         </div>
