@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "./Layout.module.css";
@@ -6,6 +6,8 @@ import styles from "./Layout.module.css";
 type Props = {};
 
 export const Layout: FC<Props> = ({ children }) => {
+  const [count, setCount] = useState<number>();
+
   return (
     <div>
       <Head>
@@ -20,7 +22,7 @@ export const Layout: FC<Props> = ({ children }) => {
           <Link href="/cart">
             <a>
               <span>🛒</span>
-              <span className={styles.cartCount}>({/* ここにカートに入っているアイテム数を入れる */})</span>
+              <span className={styles.cartCount}>({count})</span>
             </a>
           </Link>
         </div>
