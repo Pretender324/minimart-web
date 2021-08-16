@@ -7,13 +7,18 @@ import { getCartItemCount } from "../lib/cart";
 
 const TopPage: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [cartItemCount, setCartItemCount] = useState<number>(0);
 
   useEffect(() => {
     listProducts().then((products) => setProducts(products));
   }, []);
 
+  useEffect(() => {
+    setCartItemCount(getCartItemCount());
+  }, []);
+
   return (
-    <Layout cartItemCount={getCartItemCount()}>
+    <Layout cartItemCount={cartItemCount}>
       <ul className={styles.list}>
         {products.map((product) => (
           <li key={product.id} className={styles.listItem}>
